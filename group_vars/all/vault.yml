@@ -1,0 +1,5 @@
+# group_vars/all/vault.yml
+db_password: "12345"
+vault_app_secret: "super-secret-value"
+vault_db_password: "12345"
+

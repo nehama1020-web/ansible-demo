@@ -1,0 +1,54 @@
+- name: Deploy index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Optional cleanup of default site (example)
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  when: disable_default_site | default(false) | bool
+  notify: Restart nginx
+  tags: [cleanup]
+
+- name: Deploy app env file with vault secret
+  template:
+    src: app.env.j2
+    dest: /etc/app.env
+    owner: root
+    group: root
+    mode: '0600'
+  tags: [configure, secrets]
+
+- name: Ensure facts.d dir exists
+  file:
+    path: /etc/ansible/facts.d
+    state: directory
+    mode: '0755'
+
+- name: Install custom fact
+  copy:
+    dest: /etc/ansible/facts.d/custom.fact
+    mode: '0644'
+    content: |
+      [site]
+      tier=web
+      owner=devops
+  tags: [configure]
+
+- name: Configure webserver with error handling
+  block:
+    - name: Example risky operation
+      command: /usr/bin/false
+  rescue:
+    - name: Log that we rescued a failure
+      debug:
+        msg: "A failure occurred, but we recovered in rescue."
+  always:
+    - name: Always run cleanup/logging
+      debug:
+        msg: "Cleanup or final steps."
+

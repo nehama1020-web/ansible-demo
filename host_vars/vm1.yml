@@ -1,0 +1,8 @@
+---
+ansible_host: 10.56.44.183
+ansible_user: ubuntu           # or your user
+ansible_python_interpreter: /usr/bin/python3
+# optional:
+# ansible_become: true
+# ansible_become_method: sudo
+

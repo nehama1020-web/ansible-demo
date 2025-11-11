@@ -1,0 +1,31 @@
+---
+- name: Deploy Modular Web Server
+  hosts: web
+  become: true
+  roles:
+    - webserver
+
+- name: Configure web servers
+  hosts: web
+  become: yes
+  roles:
+    - webserver
+
+- name: Configure web servers again
+  hosts: web
+  become: true
+  roles:
+    - webserver
+# site.yml
+- name: Configure WEB tier
+  hosts: web
+  become: true
+  roles:
+    - webserver
+
+- name: Configure DB tier
+  hosts: db
+  become: true
+  roles:
+    - database
+

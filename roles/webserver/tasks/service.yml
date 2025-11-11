@@ -1,0 +1,21 @@
+---
+- name: Ensure Nginx is enabled and running
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+# Optional: remove the default site when requested
+- name: Optional cleanup of default site (example)
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  when: (disable_default_site | default(true)) | bool
+  notify: Restart nginx
+  tags: [cleanup]
+
+- name: Debug custom fact
+  debug:
+    msg: "Tier is {{ ansible_local.custom.site.tier }}, owner is {{ ansible_local.custom.site.owner }}"
+  tags: [service]
+
