@@ -1,4 +1,4 @@
-name: ansible-ci
+name: Ansible CI
 
 on:
   push:
@@ -7,17 +7,18 @@ on:
 
 jobs:
   lint:
-    runs-on: ['self-hosted']
+    runs-on: [ self-hosted ]   
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python
-      - uses: actions/setup-python@v5
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
       - name: Install linters
         run: |
+          python -m pip install --upgrade pip
           pip install ansible ansible-lint yamllint
 
       - name: Yamllint
@@ -30,4 +31,3 @@ jobs:
         run: |
           ansible-playbook site.yml --syntax-check
           ansible-playbook galaxy-nginx.yml --syntax-check
-
