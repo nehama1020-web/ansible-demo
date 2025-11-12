@@ -1,4 +1,1 @@
-# group_vars/web.yml
-server_name: "web-tier.example.local"
-web_title: "Web Tier"
 
