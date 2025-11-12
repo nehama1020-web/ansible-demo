@@ -1,7 +1,0 @@
-- name: Ensure DB service is enabled and running
-  service:
-    name: "{{ 'postgresql' if db_engine == 'postgresql' else 'mysql' }}"
-    enabled: true
-    state: started
-  tags: [service]
-

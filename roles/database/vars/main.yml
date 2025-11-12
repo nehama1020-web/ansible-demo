@@ -1,6 +1,0 @@
-#SPDX-License-Identifier: MIT-0
----
-# vars file for roles/database
-db_engine: postgresql
-db_port: 5432
-

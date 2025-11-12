@@ -1,6 +1,0 @@
-- name: Install DB server
-  package:
-    name: "{{ 'postgresql' if db_engine == 'postgresql' else 'mysql-server' }}"
-    state: present
-  tags: [install]
-
