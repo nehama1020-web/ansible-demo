@@ -1,3 +1,4 @@
+---
 # galaxy-nginx.yml
 - hosts: web
   become: true
@@ -26,4 +27,3 @@
           </body>
           </html>
         mode: "0644"
-
