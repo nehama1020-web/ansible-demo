@@ -1,0 +1,23 @@
+- name: Install ntpdate
+  ansible.builtin.package:
+    name: ntpdate
+    state: present
+
+# This uses a variable as this changes per distribution.
+- name: Remove the apache package
+  ansible.builtin.package:
+    name: "{{ apache }}"
+    state: absent
+
+- name: Install the latest version of Apache and MariaDB
+  ansible.builtin.package:
+    name:
+      - httpd
+      - mariadb-server
+    state: latest
+
+- name: Use the dnf package manager to install httpd
+  ansible.builtin.package:
+    name: httpd
+    state: present
+    use: dnf
